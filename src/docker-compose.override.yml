@@ -9,13 +9,30 @@ services:
     volumes:
       - mongo_data:/data/db
 
+
+  basketdb:
+    container_name: basketdb
+    restart: always    
+    ports:
+      - "6379:6379" #localport<= official port
+
   catalog.api:
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017" #container name of db : db port
-      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     depends_on:
       - catalogdb
     ports:
       - "8000:80" #exposing to port 8000 on local from container port
+
+  basket.api:
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6379"
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"
+
