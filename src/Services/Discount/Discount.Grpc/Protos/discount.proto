@@ -1,0 +1,37 @@
+syntax = "proto3";//imp to define version
+
+option csharp_namespace = "Discount.Grpc.Protos";//genarate c# files with this namespace
+
+service DiscountProtosSevice{//service name
+//methods in the sevice using pc service and message sevice
+	rpc GetDiscount(GetDiscountRequest) returns (CouponModel);
+
+	rpc CreateDiscount(CreateDiscountRequest) returns (CouponModel);
+	rpc UpdateDiscount(UpdateDiscountRequest) returns (CouponModel);
+	rpc DeleteDiscount(DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+
+message GetDiscountRequest{
+	string productName=1;
+}
+message CouponModel{
+	int32 id= 1;
+	string productName=2;
+	string discription=3;
+	int32 amount=4;
+}
+
+message CreateDiscountRequest{
+	CouponModel coupon=1;
+}
+
+message UpdateDiscountRequest{
+	CouponModel coupon=1;
+}
+message DeleteDiscountRequest{
+	string ProductName=1;
+}
+
+message DeleteDiscountResponse{
+	bool success=1;
+}
