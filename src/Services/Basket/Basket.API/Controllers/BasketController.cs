@@ -1,4 +1,5 @@
-﻿using Basket.API.Entities;
+﻿using Basket.API.DiscountServices;
+using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,14 @@ namespace Basket.API.Controllers
     [ApiController]
     public class BasketController : ControllerBase
     {
+        //dependancy injections
         private readonly IBasketRepository _Repository;
+        private readonly DiscountGrpcService _discountGrpcService;
 
-        public BasketController(IBasketRepository repository)
+        public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcServices)
         {
             this._Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this._discountGrpcService = discountGrpcServices;
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
@@ -28,10 +32,18 @@ namespace Basket.API.Controllers
             var basket = await _Repository.GetBasket(userName);
             return Ok(basket ?? new ShoppingCart(userName));//if basket is null created the new shopping cart
         }
+
         [HttpPost]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
         {
+            // Communicate with Discount.Grpc and calculate lastest prices of products into shhopping cart
+            //consume discount grpc
+            foreach(var item in basket.Items)
+            {// communicate with discount gpc service when iterating over the basket items
+                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);// get coupon info, passing this product name from controller to service
+                item.Price -= coupon.Amount;// so when discount coupon found diduct the value from actual item price to get discount
+            }
             return Ok(await _Repository.UpdateBasket(basket));
         }
             [HttpDelete("{userName}", Name = "DeleteBasket")]
