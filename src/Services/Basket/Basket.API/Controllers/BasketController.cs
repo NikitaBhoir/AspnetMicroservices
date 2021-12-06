@@ -16,7 +16,7 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         //dependancy injections
-        private readonly IBasketRepository _Repository;
+        private readonly IBasketRepository _Repository;     //when we inject any repo  or service here with constructor we need to register them in startup project under the service config  
         private readonly DiscountGrpcService _discountGrpcService;
 
         public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcServices)
