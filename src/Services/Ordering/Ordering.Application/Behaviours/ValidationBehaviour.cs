@@ -16,7 +16,7 @@ namespace Ordering.Application.Behaviours
 
         public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
         {
-            this.validators = validators;   //inject validato in behaviour
+            this.validators = validators;   //inject validator in behaviour
         }
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next) //next to call next method to execute next behaviour afternone behaviou
         {

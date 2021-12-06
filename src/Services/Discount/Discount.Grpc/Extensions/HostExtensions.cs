@@ -16,7 +16,7 @@ namespace Discount.Grpc.Extensions
         {
             int retryFoAvailability = retry.Value;
             using (var scope = host.Services.CreateScope())//create new scope to get the services
-            {//et required sevices from dependancy injection
+            {//get required sevices from dependancy injection
                 var services = scope.ServiceProvider;
                 var configuration = services.GetRequiredService<IConfiguration>();
                 var logger = services.GetRequiredService<ILogger<TContext>>();
