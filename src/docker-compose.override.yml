@@ -101,3 +101,15 @@ services:
     depends_on:
       - discountdb
 
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN@12345678;"
+    ports:
+      - "8004:80"
+    depends_on:
+      - orderdb
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
