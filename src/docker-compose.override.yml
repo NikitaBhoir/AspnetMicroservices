@@ -82,8 +82,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountUrl=http://discount.grpc" #set grpc settings set url by passing micro service
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672" 
     depends_on:
       - basketdb
+      - rabbitmq #becoz when application startup we configure to startup rabbitmq with masstansit,and also work as mssage broker system
     ports:
       - "8001:80"
 
@@ -114,9 +116,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN@12345678;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672" 
     ports:
       - "8004:80"
     depends_on:
       - orderdb
+      - rabbitmq #becoz when application startup we configure to startup rabbitmq with masstansit,and also work as mssage broker system
     #volumes:
     #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
