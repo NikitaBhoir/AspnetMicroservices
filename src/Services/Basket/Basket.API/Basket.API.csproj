@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" /><!--for the grpc sync communication with discount-->
+    <PackageReference Include="MassTransit" Version="7.2.4" /><!--used to create queue onthe rabitmq-->
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.2.4" />	  <!--in order to register mass transit in startup class easily-->
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.4" />	  <!--to connect to the rabitmq-->
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.0" />	  
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" /><!--for json converter operation-->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BulildingBlocks\EventBus.Messages\EventBus.Messages.csproj" />
   </ItemGroup>
 
   <ItemGroup>
