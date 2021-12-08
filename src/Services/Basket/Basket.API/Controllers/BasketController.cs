@@ -85,11 +85,7 @@ namespace Basket.API.Controllers
             var eventmessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
             eventmessage.TotalPrice = basket.TotalPrice;
             //eventbus.Publish basketcheckoutevent using masstransit
-            await _publishEndpoint.Publish(eventmessage);//publishin mssage to the rabbit mq
-
-
-
-
+            await _publishEndpoint.Publish(eventmessage);//publishing message to the rabbit mq
 
 
 
