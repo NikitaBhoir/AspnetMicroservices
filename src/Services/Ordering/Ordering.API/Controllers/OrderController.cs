@@ -28,7 +28,7 @@ namespace Ordering.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserName(string userName)
         {
-            var query = new GetOrdersListQuery(userName);//ceate query 
+            var query = new GetOrdersListQuery(userName);//create query 
             var orders = await _mediator.Send(query);//after getting the query we send  it to handler with he help of mediator, business logic handle and provided by ordering.application
             return Ok(orders);
         }
