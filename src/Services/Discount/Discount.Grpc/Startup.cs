@@ -35,7 +35,7 @@ namespace Discount.Grpc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<DiscountService>();//add sevice n pipeline
+                endpoints.MapGrpcService<DiscountService>();//add service in pipeline
 
                 endpoints.MapGet("/", async context =>
                 {

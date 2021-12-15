@@ -17,7 +17,7 @@ namespace Basket.API.DiscountServices
         //passing the product name from basket controller
         public async Task<CouponModel> GetDiscount(string productName)// retun type is CouponModel because hee we used the client grpc obj/sevice
         {//prepare request
-            var discountRequest = new GetDiscountRequest { ProductName = productName };//create awatable new quest of service typeS
+            var discountRequest = new GetDiscountRequest { ProductName = productName };//create awaitable new rquest of service typeS
             return await _discountProtosSeviceClient.GetDiscountAsync(discountRequest);// consuming grpc service as a client
         }
     }

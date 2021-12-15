@@ -32,7 +32,7 @@ namespace Basket.API.Repositories
 
         public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
         {
-            await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));//name of basket user and basket details in json seialied format
+            await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));//name of basket user and basket details in json serialied format
 
             return await GetBasket(basket.UserName);
         }

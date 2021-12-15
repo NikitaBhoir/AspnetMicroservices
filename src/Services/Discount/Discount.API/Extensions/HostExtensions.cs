@@ -13,11 +13,11 @@ namespace Discount.API.Extensions
 {
     public static class HostExtensions
     {
-        public static IHost MigrateDatabase<TContext>(this IHost host, int? retry = 0)//add IHost obj, 1st para is the extension of Host obj, 2nd for ety counts
+        public static IHost MigrateDatabase<TContext>(this IHost host, int? retry = 0)//add IHost obj, 1st para is the extension of Host obj, 2nd for retry counts
         {
             int retryFoAvailability = retry.Value;
             using (var scope = host.Services.CreateScope())//create new scope to get the services
-            {//et required sevices from dependancy injection
+            {//get required services from dependancy injection
                 var services = scope.ServiceProvider;
                 var configuration = services.GetRequiredService<IConfiguration>();
                 var logger = services.GetRequiredService<ILogger<TContext>>();

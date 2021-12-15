@@ -9,6 +9,6 @@ namespace Catalog.API.Data.Iterfaces
 {
     public interface ICatalogContext
     {
-        IMongoCollection<Product> Products { get; } //poperty to stores mongo data collections
+        IMongoCollection<Product> Products { get; } //property to stores mongo data collections
     }
 }
